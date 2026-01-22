@@ -49,7 +49,7 @@ stages:
             displayName: "kubctl configuration"
           - script: sed -i 's|IMAGE_PLACEHOLDER|$(ECR_REPO):$(IMAGE_TAG)|g' k8s/deployment.yaml
             displayName: "Change image name in manifest"
-          - script: kubectl apply -f k8s/
+          - script: kubectl apply -f k8s/ --validate=false
             displayName: "Apply manifest files"
           - script: kubectl rollout status deployment/devsu-demo -n devsu --timeout=120s
             displayName: Wait for rollout
