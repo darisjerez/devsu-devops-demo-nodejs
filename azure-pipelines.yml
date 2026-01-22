@@ -6,11 +6,16 @@
 trigger:
 - main
 
+variables:
+  AWS_REGION: us-east-1
+  ECR_REPO: $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/devsu-demo-nodejs
+  IMAGE_TAG: $(Build.BuildId)
+
 pool:
   name: ec2-slave
 
 stages:
-  - stage: CI
+  - stage: Testing
     displayName: "App Build Stage"
     jobs:
       - job: TestBuild
@@ -21,17 +26,21 @@ stages:
             displayName: "run unit test scripts found in package.json"
           - script: npm run test:coverage
             displayName: "get coverage report"
-      # - job: InstallDockerInSlaveMachine
-      #   steps:
-      #     - task: DockerInstaller@0
-      #       inputs:
-      #         dockerVersion: '17.09.0-ce'       
-      # - job: buildDockerImage
-      #   steps:
-      #     - task: Docker@2
-      #       inputs:
-      #         command: 'buildAndPush'
-      #         Dockerfile: '**/Dockerfile'
+
+  - stage: Build
+    displayName: Build and Push
+    dependsOn: Testing
+    jobs:
+      - job: Docker
+        steps:
+          - script: aws ecr get-login-password --region $(AWS_REGION) | docker login --username AWS --password-stdin $(ECR_REPO)
+            displayName: ECR Login
+          - script: docker build -t $(ECR_REPO):$(IMAGE_TAG) -t $(ECR_REPO):latest .
+            displayName: Build Image
+          - script: docker push $(ECR_REPO):$(IMAGE_TAG) && docker push $(ECR_REPO):latest
+            displayName: Push Image
+
+
   
 
 
