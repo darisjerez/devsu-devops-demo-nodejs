@@ -39,7 +39,20 @@ stages:
             displayName: "Build image"
           - script: docker push $(ECR_REPO):$(IMAGE_TAG) && docker push $(ECR_REPO):latest
             displayName: "Push image"
-
+  - stage: 
+    displayName: Deployment EKS
+    dependsOn: Build
+    jobs:
+      - job:
+        steps:
+          - script: aws eks update-kubeconfig --region $(AWS_REGION) --name devsu-demo-aks
+            displayName: "kubctl configuration"
+          - script: sed -i 's|IMAGE_PLACEHOLDER|$(ECR_REPO):$(IMAGE_TAG)|g' k8s/deployment.yaml
+            displayName: "Change image name in manifest"
+          - script: kubectl apply -f k8s/
+            displayName: "Apply manifest files"
+          - script: kubectl rollout status deployment/devsu-demo -n devsu --timeout=120s
+            displayName: Wait for rollout
 
   
 
