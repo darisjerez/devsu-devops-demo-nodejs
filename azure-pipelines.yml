@@ -31,7 +31,7 @@ stages:
     displayName: Build & push
     dependsOn: Test
     jobs:
-      - job: Docker
+      - job: 
         steps:
           - script: aws ecr get-login-password --region $(AWS_REGION) | docker login --username AWS --password-stdin $(ECR_REPO)
             displayName: "ECR login"
@@ -45,7 +45,7 @@ stages:
     jobs:
       - job:
         steps:
-          - script: aws eks update-kubeconfig --region $(AWS_REGION) --name devsu-demo-aks
+          - script: aws eks update-kubeconfig --region $(AWS_REGION) --name devsu-demo-eks
             displayName: "kubctl configuration"
           - script: sed -i 's|IMAGE_PLACEHOLDER|$(ECR_REPO):$(IMAGE_TAG)|g' k8s/deployment.yaml
             displayName: "Change image name in manifest"
