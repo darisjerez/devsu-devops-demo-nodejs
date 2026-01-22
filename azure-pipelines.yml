@@ -13,21 +13,14 @@ stages:
   - stage: CI
     displayName: "App Build Stage"
     jobs:
-      - job: InstallDependencies
+      - job: TestBuild
         steps:
           - script: npm ci
             displayName: "install node dependencies"
-      - job: UnitTest
-        steps:
           - script: npm run test
             displayName: "run unit test scripts found in package.json"
-      - job: TestCoverage
-        steps:
           - script: npm run test:coverage
             displayName: "get coverage report"
-      - job: StaticCodeAnalysis
-        steps:
-          - script: echo later
       # - job: InstallDockerInSlaveMachine
       #   steps:
       #     - task: DockerInstaller@0
