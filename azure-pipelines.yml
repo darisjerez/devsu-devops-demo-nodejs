@@ -21,11 +21,11 @@ stages:
       - job:
         steps:
           - script: npm ci
-            displayName: "install node dependencies"
+            displayName: "Install node dependencies"
           - script: npm run test
-            displayName: "run unit test scripts found in package.json"
+            displayName: "Run unit test scripts found in package.json"
           - script: npm run test:coverage
-            displayName: "get coverage report"
+            displayName: "Get coverage report"
 
   - stage: Build
     displayName: Build & push
@@ -34,11 +34,11 @@ stages:
       - job: Docker
         steps:
           - script: aws ecr get-login-password --region $(AWS_REGION) | docker login --username AWS --password-stdin $(ECR_REPO)
-            displayName: ECR Login
+            displayName: "ECR login"
           - script: docker build -t $(ECR_REPO):$(IMAGE_TAG) -t $(ECR_REPO):latest .
-            displayName: Build Image
+            displayName: "Build image"
           - script: docker push $(ECR_REPO):$(IMAGE_TAG) && docker push $(ECR_REPO):latest
-            displayName: Push Image
+            displayName: "Push image"
 
 
   
