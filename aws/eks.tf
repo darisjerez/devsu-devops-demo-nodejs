@@ -6,7 +6,10 @@ module "eks" {
   cluster_name    = "${var.project_name}-eks"
   cluster_version = "1.29"
 
-  cluster_endpoint_public_access = true
+  cluster_endpoint_public_access  = true
+  cluster_endpoint_private_access = true
+
+  cluster_additional_security_group_ids = [aws_security_group.agent.id]
 
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
