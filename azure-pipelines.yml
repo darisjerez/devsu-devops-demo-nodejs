@@ -15,10 +15,10 @@ pool:
   name: ec2-slave
 
 stages:
-  - stage: Testing
-    displayName: "App Build Stage"
+  - stage: Test
+    displayName: "Code testing"
     jobs:
-      - job: TestBuild
+      - job:
         steps:
           - script: npm ci
             displayName: "install node dependencies"
@@ -28,8 +28,8 @@ stages:
             displayName: "get coverage report"
 
   - stage: Build
-    displayName: Build and Push
-    dependsOn: Testing
+    displayName: Build & push
+    dependsOn: Test
     jobs:
       - job: Docker
         steps:
