@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devsu-demo
+  namespace: devsu
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: devsu-demo
+  template:
+    metadata:
+      labels:
+        app: devsu-demo
+    spec:
+      containers:
+        - name: devsu-demo
+          image: IMAGE_PLACEHOLDER
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: devsu-demo-config
+          env:
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: devsu-demo-secret
+                  key: DATABASE_PASSWORD
+          livenessProbe:
+            httpGet:
+              path: /api/users
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /api/users
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 5

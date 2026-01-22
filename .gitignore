@@ -126,3 +126,12 @@ dist
 .pnp.*
 
 .env
+
+# Terraform
+aws/.terraform/
+aws/*.tfstate
+aws/*.tfstate.backup
+aws/*.tfplan
+aws/.terraform.lock.hcl
+
+.DS_Store
