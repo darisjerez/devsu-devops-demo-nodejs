@@ -53,6 +53,8 @@ stages:
             displayName: "Apply manifest files"
           - script: kubectl rollout status deployment/devsu-demo -n devsu --timeout=120s
             displayName: Wait for rollout
+          - script: kubectl get svc -n devsu
+            displayName: return API URL 
 
   
 
