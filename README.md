@@ -298,9 +298,9 @@ Este proyecto despliega una aplicación en nodejs hacia EKS (Kubernetes) usando 
 
 ### Entregables
 1. Repo publico: https://github.com/darisjerez/devsu-devops-demo-nodejs
-2. Azure DevOps: https://dev.azure.com/darisjerez/DevOps/_build
+2. Azure DevOps (Acceso publico): https://dev.azure.com/darisjerez/DevOps/_build
 3. Archivos Terraform: aws/
 4. Kubernetes manifiestos: k8s/
-5. App URL: 
+5. App URL: http://a2f1ee720b49a40a0a2a66f25a86de1a-1141336828.us-east-1.elb.amazonaws.com
 
 
