@@ -1,6 +1,6 @@
-resource "aws_ecr_repository" "app" {
+resource "aws_ecr_repository" "this" {
   name                 = "${var.project_name}-nodejs"
-  image_tag_mutability = "MUTABLE"
+  image_tag_mutability = var.image_tag_mutability
   force_delete         = true
 
   image_scanning_configuration {
@@ -8,17 +8,17 @@ resource "aws_ecr_repository" "app" {
   }
 }
 
-resource "aws_ecr_lifecycle_policy" "app" {
-  repository = aws_ecr_repository.app.name
+resource "aws_ecr_lifecycle_policy" "this" {
+  repository = aws_ecr_repository.this.name
 
   policy = jsonencode({
     rules = [{
       rulePriority = 1
-      description  = "Keep last 10 images"
+      description  = "Keep last ${var.max_image_count} images"
       selection = {
         tagStatus   = "any"
         countType   = "imageCountMoreThan"
-        countNumber = 10
+        countNumber = var.max_image_count
       }
       action = {
         type = "expire"
