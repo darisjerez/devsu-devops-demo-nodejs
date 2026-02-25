@@ -1,0 +1,47 @@
+image:
+  repository: ""
+  tag: "latest"
+  pullPolicy: Always
+
+replicaCount: 2
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 8000
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
+
+probes:
+  liveness:
+    path: /api/users
+    port: 8000
+    initialDelaySeconds: 30
+    periodSeconds: 10
+  readiness:
+    path: /api/users
+    port: 8000
+    initialDelaySeconds: 5
+    periodSeconds: 5
+
+config:
+  DATABASE_NAME: "./dev.sqlite"
+  DATABASE_USER: "user"
+
+secret:
+  DATABASE_PASSWORD: "password"
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+
+ingress:
+  enabled: false

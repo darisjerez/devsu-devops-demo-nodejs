@@ -1,0 +1,9 @@
+Devsu Demo has been deployed!
+
+To check the status:
+  kubectl get pods -n {{ .Release.Namespace }} -l "{{ include "devsu-demo.selectorLabels" . | replace ": " "=" | replace "\n" "," }}"
+
+To get the service URL:
+  kubectl get svc {{ include "devsu-demo.fullname" . }} -n {{ .Release.Namespace }}
+
+API endpoint: http://<EXTERNAL-IP>/api/users

@@ -1,0 +1,99 @@
+<mxfile host="app.diagrams.net" pages="5">
+  <diagram id="arch" name="Architecture">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="800" pageHeight="500">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="aws" value="AWS" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;verticalAlign=top;fontStyle=1;fontSize=14;" vertex="1" parent="1"><mxGeometry x="20" y="60" width="760" height="420" as="geometry"/></mxCell>
+        <mxCell id="vpc" value="VPC 10.0.0.0/16" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;dashed=1;verticalAlign=top;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="40" y="100" width="720" height="260" as="geometry"/></mxCell>
+        <mxCell id="pub" value="Public Subnet" style="rounded=1;whiteSpace=wrap;fillColor=#fff;strokeColor=#d6d6d6;verticalAlign=top;" vertex="1" parent="1"><mxGeometry x="60" y="130" width="200" height="210" as="geometry"/></mxCell>
+        <mxCell id="agent" value="EC2 Agent&#xa;Docker, kubectl&#xa;Helm, Trivy" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="80" y="165" width="160" height="70" as="geometry"/></mxCell>
+        <mxCell id="azagent" value="Azure DevOps Agent" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="80" y="255" width="160" height="40" as="geometry"/></mxCell>
+        <mxCell id="priv" value="Private Subnets" style="rounded=1;whiteSpace=wrap;fillColor=#fff;strokeColor=#d6d6d6;verticalAlign=top;" vertex="1" parent="1"><mxGeometry x="290" y="130" width="450" height="210" as="geometry"/></mxCell>
+        <mxCell id="eks" value="EKS Cluster" style="rounded=1;whiteSpace=wrap;fillColor=#e1d5e7;strokeColor=#9673a6;verticalAlign=top;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="310" y="160" width="350" height="100" as="geometry"/></mxCell>
+        <mxCell id="pod1" value="Pod" style="rounded=1;whiteSpace=wrap;fillColor=#fff;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="330" y="195" width="80" height="35" as="geometry"/></mxCell>
+        <mxCell id="pod2" value="Pod" style="rounded=1;whiteSpace=wrap;fillColor=#fff;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="430" y="195" width="80" height="35" as="geometry"/></mxCell>
+        <mxCell id="hpa" value="HPA" style="rounded=1;whiteSpace=wrap;fillColor=#fff;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="530" y="195" width="80" height="35" as="geometry"/></mxCell>
+        <mxCell id="lb" value="Load Balancer" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="380" y="290" width="160" height="40" as="geometry"/></mxCell>
+        <mxCell id="ecr" value="ECR Registry" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="40" y="385" width="160" height="50" as="geometry"/></mxCell>
+        <mxCell id="azdevops" value="Azure DevOps&#xa;CI/CD Pipeline" style="rounded=1;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="280" y="5" width="180" height="45" as="geometry"/></mxCell>
+        <mxCell id="internet" value="Internet" style="ellipse;whiteSpace=wrap;fillColor=#fff;strokeColor=#666;" vertex="1" parent="1"><mxGeometry x="580" y="385" width="120" height="50" as="geometry"/></mxCell>
+        <mxCell id="e1" source="azdevops" target="agent" style="edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" source="agent" target="ecr" style="edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" source="agent" target="eks" style="edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" source="internet" target="lb" style="edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="pipe" name="Pipeline">
+    <mxGraphModel dx="900" dy="200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="120">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="t" value="Test&#xa;npm test&#xa;coverage" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="10" y="20" width="140" height="70" as="geometry"/></mxCell>
+        <mxCell id="s" value="Security&#xa;npm audit&#xa;ESLint SAST" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="190" y="20" width="140" height="70" as="geometry"/></mxCell>
+        <mxCell id="b" value="Build &amp; Push&#xa;Docker build&#xa;ECR push" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="370" y="20" width="140" height="70" as="geometry"/></mxCell>
+        <mxCell id="c" value="Container Scan&#xa;Trivy&#xa;HIGH/CRITICAL" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="550" y="20" width="140" height="70" as="geometry"/></mxCell>
+        <mxCell id="d" value="Deploy&#xa;Helm upgrade&#xa;EKS rollout" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="730" y="20" width="140" height="70" as="geometry"/></mxCell>
+        <mxCell id="e1" source="t" target="s" style="" edge="1" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" source="s" target="b" style="" edge="1" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" source="b" target="c" style="" edge="1" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" source="c" target="d" style="" edge="1" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="tf" name="Terraform Modules">
+    <mxGraphModel dx="700" dy="350" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="650" pageHeight="300">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="root" value="main.tf&#xa;root module" style="rounded=1;whiteSpace=wrap;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="250" y="10" width="140" height="50" as="geometry"/></mxCell>
+        <mxCell id="net" value="networking&#xa;VPC, Subnets, NAT" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="10" y="110" width="140" height="50" as="geometry"/></mxCell>
+        <mxCell id="ecr" value="ecr&#xa;Repository, Lifecycle" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="170" y="110" width="140" height="50" as="geometry"/></mxCell>
+        <mxCell id="ag" value="agent&#xa;IAM, SG, EC2" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="330" y="110" width="140" height="50" as="geometry"/></mxCell>
+        <mxCell id="ek" value="eks&#xa;Cluster, Node Groups" style="rounded=1;whiteSpace=wrap;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="490" y="110" width="140" height="50" as="geometry"/></mxCell>
+        <mxCell id="e1" source="root" target="net" style="" edge="1" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" source="root" target="ecr" style="" edge="1" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" source="root" target="ag" style="" edge="1" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" source="root" target="ek" style="" edge="1" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" value="vpc_id, subnets" source="net" target="ag" style="dashed=1;strokeColor=#82b366;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" value="vpc_id, subnets" source="net" target="ek" style="dashed=1;strokeColor=#82b366;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" value="sg_id, role_arn" source="ag" target="ek" style="dashed=1;strokeColor=#d6b656;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="dev" name="Developer Workflow">
+    <mxGraphModel dx="750" dy="450" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="700" pageHeight="420">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="dev" value="Developer" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="40" y="10" width="100" height="40" as="geometry"/></mxCell>
+        <mxCell id="git" value="Git" style="rounded=1;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#666;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="200" y="10" width="100" height="40" as="geometry"/></mxCell>
+        <mxCell id="pipe" value="Pipeline" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="360" y="10" width="100" height="40" as="geometry"/></mxCell>
+        <mxCell id="ecr" value="ECR" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="520" y="10" width="100" height="40" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="ssl" name="SSL Options">
+    <mxGraphModel dx="750" dy="250" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="700" pageHeight="200">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="cur" value="Current Setup" style="rounded=1;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#d6d6d6;verticalAlign=top;fontStyle=1;fontSize=14;" vertex="1" parent="1"><mxGeometry x="5" y="5" width="330" height="140" as="geometry"/></mxCell>
+        <mxCell id="i1" value="Internet&#xa;HTTP" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="20" y="45" width="80" height="45" as="geometry"/></mxCell>
+        <mxCell id="clb" value="Classic LB&#xa;:80" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="130" y="45" width="80" height="45" as="geometry"/></mxCell>
+        <mxCell id="p1" value="Pods&#xa;:8000" style="rounded=1;whiteSpace=wrap;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="240" y="45" width="80" height="45" as="geometry"/></mxCell>
+        <mxCell id="ssl" value="With SSL (ACM + ALB)" style="rounded=1;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#d6d6d6;verticalAlign=top;fontStyle=1;fontSize=14;" vertex="1" parent="1"><mxGeometry x="365" y="5" width="330" height="140" as="geometry"/></mxCell>
+        <mxCell id="i2" value="Internet&#xa;HTTPS" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="380" y="45" width="80" height="45" as="geometry"/></mxCell>
+        <mxCell id="alb" value="ALB&#xa;:443 + ACM" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="490" y="45" width="80" height="45" as="geometry"/></mxCell>
+        <mxCell id="p2" value="Pods&#xa;:8000" style="rounded=1;whiteSpace=wrap;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="600" y="45" width="80" height="45" as="geometry"/></mxCell>
+        <mxCell id="e1" source="i1" target="clb" style="" edge="1" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" source="clb" target="p1" style="" edge="1" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" source="i2" target="alb" style="" edge="1" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" source="alb" target="p2" style="" edge="1" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="nossl" value="No SSL/TLS" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="20" y="105" width="300" height="30" as="geometry"/></mxCell>
+        <mxCell id="yesssl" value="End-to-end TLS" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="380" y="105" width="300" height="30" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

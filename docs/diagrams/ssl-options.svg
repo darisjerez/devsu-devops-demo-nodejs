@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 200">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6B7280"/>
+    </marker>
+    <style>
+      text { font-family: Arial, sans-serif; font-size: 13px; fill: #1F2937; }
+      .small { font-size: 11px; fill: #6B7280; }
+      .title { font-size: 14px; font-weight: bold; }
+    </style>
+  </defs>
+
+  <rect x="5" y="5" width="330" height="190" rx="10" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1.5"/>
+  <text x="170" y="30" text-anchor="middle" class="title">Current Setup</text>
+
+  <rect x="25" y="50" width="90" height="45" rx="6" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+  <text x="70" y="70" text-anchor="middle" font-weight="bold">Internet</text>
+  <text x="70" y="84" text-anchor="middle" class="small">HTTP</text>
+
+  <line x1="120" y1="72" x2="145" y2="72" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="150" y="50" width="90" height="45" rx="6" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5"/>
+  <text x="195" y="70" text-anchor="middle" font-weight="bold">Classic LB</text>
+  <text x="195" y="84" text-anchor="middle" class="small">:80</text>
+
+  <line x1="245" y1="72" x2="270" y2="72" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="275" y="50" width="90" height="45" rx="6" fill="#EDE9FE" stroke="#7C3AED" stroke-width="1.5"/>
+  <text x="320" y="70" text-anchor="middle" font-weight="bold">Pods</text>
+  <text x="320" y="84" text-anchor="middle" class="small">:8000</text>
+
+  <rect x="25" y="110" width="320" height="35" rx="6" fill="#FEE2E2" stroke="#DC2626" stroke-width="1"/>
+  <text x="185" y="132" text-anchor="middle" class="small">No SSL/TLS encryption</text>
+
+  <rect x="365" y="5" width="330" height="190" rx="10" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1.5"/>
+  <text x="530" y="30" text-anchor="middle" class="title">With SSL (ACM + ALB)</text>
+
+  <rect x="385" y="50" width="90" height="45" rx="6" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+  <text x="430" y="70" text-anchor="middle" font-weight="bold">Internet</text>
+  <text x="430" y="84" text-anchor="middle" class="small">HTTPS</text>
+
+  <line x1="480" y1="72" x2="505" y2="72" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="510" y="50" width="90" height="45" rx="6" fill="#D1FAE5" stroke="#059669" stroke-width="1.5"/>
+  <text x="555" y="70" text-anchor="middle" font-weight="bold">ALB</text>
+  <text x="555" y="84" text-anchor="middle" class="small">:443 + ACM</text>
+
+  <line x1="605" y1="72" x2="630" y2="72" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="635" y="50" width="90" height="45" rx="6" fill="#EDE9FE" stroke="#7C3AED" stroke-width="1.5"/>
+  <text x="680" y="70" text-anchor="middle" font-weight="bold">Pods</text>
+  <text x="680" y="84" text-anchor="middle" class="small">:8000</text>
+
+  <rect x="385" y="110" width="320" height="35" rx="6" fill="#D1FAE5" stroke="#059669" stroke-width="1"/>
+  <text x="545" y="132" text-anchor="middle" class="small">End-to-end TLS encryption</text>
+</svg>

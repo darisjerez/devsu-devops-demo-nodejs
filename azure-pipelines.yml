@@ -1,13 +1,8 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - main
 
 variables:
-  AWS_REGION: us-east-1
+  AWS_REGION: us-east-2
   ECR_REPO: $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com/devsu-demo-nodejs
   IMAGE_TAG: $(Build.BuildId)
 
@@ -16,22 +11,43 @@ pool:
 
 stages:
   - stage: Test
-    displayName: "Code testing"
+    displayName: "Test"
     jobs:
-      - job:
+      - job: UnitTests
         steps:
           - script: npm ci
-            displayName: "Install node dependencies"
+            displayName: "Install dependencies"
           - script: npm run test
-            displayName: "Run unit test scripts found in package.json"
+            displayName: "Run unit tests"
           - script: npm run test:coverage
-            displayName: "Get coverage report"
+            displayName: "Generate coverage report"
 
-  - stage: Build
-    displayName: Build & push
+  - stage: Security
+    displayName: "Security"
     dependsOn: Test
     jobs:
-      - job: 
+      - job: DependencyAudit
+        displayName: "Dependency Audit"
+        steps:
+          - script: npm ci
+            displayName: "Install dependencies"
+          - script: npm audit --audit-level=high
+            displayName: "Scan dependencies for vulnerabilities"
+            continueOnError: true
+      - job: SAST
+        displayName: "Static Analysis"
+        steps:
+          - script: npm ci
+            displayName: "Install dependencies"
+          - script: npx eslint . --config .eslintrc.json
+            displayName: "Run ESLint SAST analysis"
+            continueOnError: true
+
+  - stage: Build
+    displayName: "Build & Push"
+    dependsOn: Security
+    jobs:
+      - job: BuildImage
         steps:
           - script: aws ecr get-login-password --region $(AWS_REGION) | docker login --username AWS --password-stdin $(ECR_REPO)
             displayName: "ECR login"
@@ -39,24 +55,32 @@ stages:
             displayName: "Build image"
           - script: docker push $(ECR_REPO):$(IMAGE_TAG) && docker push $(ECR_REPO):latest
             displayName: "Push image"
-  - stage: 
-    displayName: Deployment EKS
+
+  - stage: ContainerScan
+    displayName: "Container Scan"
     dependsOn: Build
     jobs:
-      - job:
+      - job: TrivyScan
+        steps:
+          - script: |
+              trivy image --severity HIGH,CRITICAL --exit-code 0 --format table $(ECR_REPO):$(IMAGE_TAG)
+            displayName: "Trivy scan for HIGH/CRITICAL vulnerabilities"
+
+  - stage: Deploy
+    displayName: "Deploy to EKS"
+    dependsOn: ContainerScan
+    jobs:
+      - job: HelmDeploy
         steps:
           - script: aws eks update-kubeconfig --region $(AWS_REGION) --name devsu-demo-eks
-            displayName: "kubctl configuration"
-          - script: sed -i 's|IMAGE_PLACEHOLDER|$(ECR_REPO):$(IMAGE_TAG)|g' k8s/deployment.yaml
-            displayName: "Change image name in manifest"
-          - script: kubectl apply -f k8s/ --validate=false
-            displayName: "Apply manifest files"
+            displayName: "Configure kubectl"
+          - script: |
+              helm upgrade --install devsu-demo ./helm/devsu-demo \
+                --namespace devsu --create-namespace \
+                --set image.repository=$(ECR_REPO) \
+                --set image.tag=$(IMAGE_TAG)
+            displayName: "Helm deploy"
           - script: kubectl rollout status deployment/devsu-demo -n devsu --timeout=120s
-            displayName: Wait for rollout
+            displayName: "Wait for rollout"
           - script: kubectl get svc -n devsu
-            displayName: return API URL 
-
-  
-
-
-  
+            displayName: "Show service URL"

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 100">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6B7280"/>
+    </marker>
+    <style>
+      text { font-family: Arial, sans-serif; font-size: 13px; fill: #1F2937; }
+      .small { font-size: 11px; fill: #6B7280; }
+    </style>
+  </defs>
+
+  <rect x="0" y="15" width="150" height="70" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+  <text x="75" y="42" text-anchor="middle" font-weight="bold">Test</text>
+  <text x="75" y="58" text-anchor="middle" class="small">npm test</text>
+  <text x="75" y="72" text-anchor="middle" class="small">coverage</text>
+
+  <line x1="155" y1="50" x2="185" y2="50" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="190" y="15" width="150" height="70" rx="8" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5"/>
+  <text x="265" y="42" text-anchor="middle" font-weight="bold">Security</text>
+  <text x="265" y="58" text-anchor="middle" class="small">npm audit</text>
+  <text x="265" y="72" text-anchor="middle" class="small">ESLint SAST</text>
+
+  <line x1="345" y1="50" x2="375" y2="50" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="380" y="15" width="150" height="70" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+  <text x="455" y="42" text-anchor="middle" font-weight="bold">Build &amp; Push</text>
+  <text x="455" y="58" text-anchor="middle" class="small">Docker build</text>
+  <text x="455" y="72" text-anchor="middle" class="small">ECR push</text>
+
+  <line x1="535" y1="50" x2="565" y2="50" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="570" y="15" width="150" height="70" rx="8" fill="#FEE2E2" stroke="#DC2626" stroke-width="1.5"/>
+  <text x="645" y="42" text-anchor="middle" font-weight="bold">Container Scan</text>
+  <text x="645" y="58" text-anchor="middle" class="small">Trivy</text>
+  <text x="645" y="72" text-anchor="middle" class="small">HIGH/CRITICAL</text>
+
+  <line x1="725" y1="50" x2="755" y2="50" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="760" y="15" width="150" height="70" rx="8" fill="#D1FAE5" stroke="#059669" stroke-width="1.5"/>
+  <text x="835" y="42" text-anchor="middle" font-weight="bold">Deploy</text>
+  <text x="835" y="58" text-anchor="middle" class="small">Helm upgrade</text>
+  <text x="835" y="72" text-anchor="middle" class="small">EKS rollout</text>
+</svg>
