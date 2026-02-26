@@ -193,7 +193,7 @@ devsu-devops-demo-nodejs/
 2. **Azure DevOps**: https://dev.azure.com/darisjerez/DevOps/_build
 3. **Terraform**: `aws/` with 4 custom modules
 4. **Helm chart**: `helm/devsu-demo/`
-5. **App URL**: http://ab509bb5dd5f44dc78e961243a3118f6-1846993244.us-east-2.elb.amazonaws.com
+5. **App URL**: http://acf430b8f42d74fc28522f73e2e5395f-1995166995.us-east-2.elb.amazonaws.com
 
 ## License
 
